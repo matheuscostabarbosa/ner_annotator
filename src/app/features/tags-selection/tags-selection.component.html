@@ -1,0 +1,10 @@
+<div>
+  <h3>Selecione uma Tag:</h3>
+  <mat-dialog-actions>
+    <button mat-button *ngFor="let tag of tagService.tags" [style.background-color]="tag.color" [mat-dialog-close]="tag.name" cdkFocusInitial>
+      {{ tag.name }}
+    </button>
+  </mat-dialog-actions>
+</div>
+
+

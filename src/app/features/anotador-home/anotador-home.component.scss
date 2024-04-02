@@ -1,0 +1,275 @@
+/* Estilo para o container principal */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 20px;
+}
+
+/* Estilo para o container de texto e botões */
+.text-and-buttons {
+  //width: calc(100% - 250px); /* Example: Fixed width of 250px */
+  /* OR */
+  width: calc(100% - 30vh); /* Example: Subtract 30vh */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Estilo para a div que contém a área de texto */
+.textarea-container {
+  margin-bottom: 20px;
+  height: 50vh;
+  //width: calc(100% - 30vh);
+  resize: none;
+}
+textarea {
+  height: 40vh; /* Defina a mesma altura da div */
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  resize: none;
+  overflow-y: auto;
+  width:98%;
+}
+/* Estilo para o textarea */
+.custom-textarea {
+  //width: 100%;
+  height: 40vh;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  resize: none;
+  overflow-y: auto;
+}
+
+/* Estilo para o grupo de botões */
+.button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Estilo para os botões */
+.button-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.button-container button {
+  padding: 10px 20px;
+  background-color: #26292c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+/* Mudança de cor quando o botão é hover */
+.button-container button:hover {
+  background-color: #153c63;
+}
+
+/* Estilo para o botão de adicionar tag */
+.tags-container button {
+  padding: 8px 20px;
+  background-color: #26292c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Mudança de cor quando o botão é hover */
+.tags-container button:hover {
+  background-color: #153c63;
+}
+
+/* Estilo para a div que contém as tags */
+.tags-container {flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 20vh;
+  margin-left: 20px;
+}
+
+/* Estilo para as tags */
+.tags-container .tag {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background-color: #153c63;
+  color: #020202;
+  border-radius: 20px;
+}
+
+/* Estilo para o campo de entrada de nova tag */
+.tags-container input[type="text"] {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Estilo para o botão de adicionar tag */
+.tags-container button {
+  padding: 8px 12px;
+  background-color: #26292c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 70%;
+  margin-top: 10px;
+}
+
+/* Mudança de cor quando o botão é hover */
+.tags-container button:hover {
+  background-color: #153c63;
+}
+
+/* Estilo para a div que contém os botões e a lista de arquivos */
+.file-selection-panel {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px; 
+  width: 20vh;
+}
+
+
+.title {
+  //padding: 10px; /* Espaçamento interno */
+  background-color: #fff; /* Fundo branco */
+  border-bottom: 1px solid #ccc; /* Linha divisória */
+}
+
+.file-list {
+  flex-grow: 1; /* A lista de arquivos ocupa todo o espaço disponível */
+  height: 70vh;
+  overflow-y: auto; /* Adiciona barra de rolagem vertical quando necessário */
+}
+.file-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.file-list li {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f2f2f2; /* Quase branco */
+  border: 1px solid #ccc; /* Borda cinza */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+/* Estilo para o item selecionado */
+.file-list li.selected {
+  background-color: #e6f3ff; /* Fundo azul claro */
+}
+
+.file-list li.selected a {
+  font-weight: bold;
+}
+
+/* Estilo para a lista de marcadores */
+.tag-text-list {
+  //overflow-y: scroll;
+  height: 20%;
+  // border-radius: 5px;
+  // background-color: #f2f2f2; /* Quase branco */
+  // border: 1px solid #ccc; /* Borda cinza */
+}
+
+.tag-text-list table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  height: 20%; /* Define a altura da tabela */
+}
+
+.tag-text-list th,
+.tag-text-list td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  word-break: break-word;
+}
+
+.tag-text-list th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+tr {
+  height: 10px;
+}
+
+.tag-text-list tr:hover {
+  background-color: #f2f2f2;
+}
+
+.tag-text-list button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tag-text-list button:hover {
+  background-color: #d32f2f;
+}
+
+/* Fix for row heights and scroll */
+.tag-text-list tr {
+  height: 40px; /* Define a altura das linhas */
+}
+
+.tag-text-list tbody {
+  //overflow-y: scroll;
+  height: calc(100% - 40px); /* Ajusta a altura da área de rolagem */
+  //max-height: 300px;
+  resize: none;
+}
+
+/* Zebra Stripe (opcional) */
+.tag-text-list tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+
+/* Destaque do Cabeçalho (opcional) */
+.tag-text-list th {
+  font-weight: bold;
+  background-color: #e6f3ff;
+}
+
+.text-preview {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-preview:hover {
+  position: relative;
+}
+
+.text-preview:hover::after {
+  content: attr(title);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f9f9f9;
+  padding: 5px;
+  border: 1px solid #ccc;
+}

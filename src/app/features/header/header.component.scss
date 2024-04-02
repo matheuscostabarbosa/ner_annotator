@@ -1,0 +1,60 @@
+header {
+    height: 55px;
+    width: 100%;
+    position: fixed;
+    background: rgba(240, 240, 240, 0.9); 
+    z-index: 120;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ajusta a sombra */
+  }
+
+  .title {
+    float: left;
+    width: 40vh;
+    height: 12px;
+    padding: 14px 7px;
+    color: #201d1d;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font: bold 95.5% "proxima-nova-alt", Helvetica, Arial, sans-serif;
+    position: relative;
+  }
+  
+  header li {
+    float: left;
+    list-style-type: none;
+    border-right: 1px solid #252525;
+    position: relative; 
+  }
+  
+  header li a {
+    float: left;
+    width: 98px;
+    height: 12px;
+    padding: 14px 7px;
+    color: #201d1d;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font: normal 62.5% "proxima-nova-alt", Helvetica, Arial, sans-serif;
+    position: relative; // Adiciona posição relativa para posicionar o conteúdo deslizante
+  }
+  
+  .slide-content {
+    display: none; // Inicialmente oculta o conteúdo do slide
+    position: absolute;
+    top: 40px; // Alinha o conteúdo do slide abaixo do cabeçalho
+    left: 0;
+    width: 200px;
+    background: rgba(240, 240, 240, 0.9); 
+    padding: 10px;
+    border-top: 1px solid #252525;
+  }
+  
+  header li:hover .slide-content {
+    display: block; // Mostra o conteúdo do slide ao passar o mouse sobre a opção do menu
+  }
