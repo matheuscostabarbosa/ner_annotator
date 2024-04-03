@@ -32,11 +32,12 @@ export class TagService {
   private getRandomColor(): string {
     const existingColors = this.tags.map(tag => tag.color);
     let color;
-      do {
-          color = '#' + Math.floor(Math.random() * 16777215).toString(16);
-      } while (existingColors.includes(color) || this.isTooDark(color));
-      return color;
-  }
+    do {
+        // Gere uma cor aleatória em hexadecimal com 6 dígitos
+        color = '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16).padStart(6, '0');
+    } while (existingColors.includes(color) || this.isTooDark(color));
+    return color;
+}
 
   private isTooDark(color: string): boolean {
       // Converta a cor hexadecimal em RGB

@@ -78,40 +78,41 @@ export class AnotadorHomeComponent {
     this.currentIndex = this.files.indexOf(file);
   }
 
-  // onTextSelect() {
-  //   const textArea = document.querySelector('.custom-textarea');
-  //   if (textArea) {
-  //     const selectedText = this.getSelectedText(textArea);
-  //     console.log("Texto selecionado:", selectedText);
+  onTextSelect() {
+    const textArea = document.querySelector('.custom-textarea');
+    if (textArea) {
+      const selectedText = this.getSelectedText(textArea);
+      console.log("Texto selecionado:", selectedText);
       
-  //     if (selectedText) {
-  //       const dialogRef = this.dialog.open(TagsSelectionComponent);
+      if (selectedText) {
+        const dialogRef = this.dialog.open(TagsSelectionComponent);
 
-  //       dialogRef.afterClosed().subscribe((selectedTag: string) => {
-  //         if (selectedTag) {
-  //           const currentIndex = this.currentIndex;
-  //           console.log(selectedText.startIndex)
-  //           console.log(selectedText.length)
-  //           const end = selectedText.startIndex + selectedText.length;
-  //           const existingTagIndex = this.tagService.getTagsForDocument(currentIndex).findIndex(tag => tag.start === selectedText.startIndex && tag.end === end);
+        dialogRef.afterClosed().subscribe((selectedTag: string) => {
+          if (selectedTag) {
+            const currentIndex = this.currentIndex;
+            console.log(selectedText.startIndex)
+            console.log(selectedText.length)
+            const end = selectedText.startIndex + selectedText.length;
+            const existingTagIndex = this.tagService.getTagsForDocument(currentIndex).findIndex(tag => tag.start === selectedText.startIndex && tag.end === end);
 
-  //           if (existingTagIndex !== -1) {
-  //             // Se uma tag já existe com o mesmo início e fim, substitua-a
-  //             this.tagService.tagsPerDocument[currentIndex].splice(existingTagIndex, 1, { tag: selectedTag, start: selectedText.startIndex, end });
-  //           } else {
-  //             // Caso contrário, adicione uma nova tag
-  //             this.tagService.addTagToDocument(currentIndex, selectedTag, selectedText.startIndex, end);
-  //           }
-  //           this.updateTextWithTags();
-  //           console.log(this.tagService.getTagsForDocument(this.currentIndex))
+            if (existingTagIndex !== -1) {
+              // Se uma tag já existe com o mesmo início e fim, substitua-a
+              this.tagService.tagsPerDocument[currentIndex].splice(existingTagIndex, 1, { tag: selectedTag, start: selectedText.startIndex, end });
+            } else {
+              // Caso contrário, adicione uma nova tag
+              this.tagService.addTagToDocument(currentIndex, selectedTag, selectedText.startIndex, end);
+            }
+            this.updateTextWithTags();
+            console.log(this.tagService.getTagsForDocument(this.currentIndex))
         
-  //         }
-  //       });
-  //     }
-  //   }
-  // }
+          }
+        });
+      }
+    }
+  }
 
   // getSelectedText(textArea: Element): SelectedTextResult | null {
+  //   // descontar todos os length de tags existentes antes da seleção e depois
   //     const selection = window.getSelection();
   //     if (selection && selection.rangeCount > 0) {
   //         const range = selection.getRangeAt(0);
@@ -129,77 +130,130 @@ export class AnotadorHomeComponent {
   //     return null;
   // }
 
+
+  getSelectedText(textArea: Element): SelectedTextResult | null {
+    const selection = window.getSelection();
+
+    const spanTagLengthInicio = `<span style="background-color: #000000;">`.length;
+    const spanTagLengthFim ='</span>'.length;
+
+    if (selection && selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        
+        // Obter o texto completo da div
+        const divText = textArea.textContent;
+
+        // Obter o índice inicial da seleção
+        let startIndex = 0;
+        const nodes = range.startContainer.parentNode?.childNodes;
+        if (nodes) {
+            for (let i = 0; i < nodes.length; i++) {
+                if (nodes[i] === range.startContainer) {
+                    startIndex += range.startOffset;
+                    break;
+                } else {
+                    startIndex += nodes[i].textContent?.length || 0;
+                }
+            }
+        }
+
+        // Contar as tags <span> que estão antes do índice inicial da seleção
+        const spanTagsBefore = (divText?.substring(0, startIndex).match(/<span[^>]*>/g) || []).length;
+
+        // Ajustar o índice inicial da seleção considerando as tags <span>
+        const adjustedStartIndex = startIndex - (spanTagsBefore * (spanTagLengthInicio + spanTagLengthFim));
+
+        // Obter o texto selecionado
+        const selectedText = selection.toString();
+        const length = selectedText.length;
+
+        return { text: selectedText, startIndex: adjustedStartIndex, length: length };
+    }
+    return null;
+}
+
+  adjustSpanTags(){
+    const spanTagLengthInicio = `<span style="background-color: #000000;">`.length;
+    const spanTagLengthFim ='</span>'.length;
+  }
+
   // getTagsForCurrentFile(): Tag[] {
   //   const tags = this.tagService.getTagsForDocument(this.currentIndex);
   //   return tags.map(tag => ({ name: tag.tag, color: this.tagService.tags.find(t => t.name === tag.tag)?.color || '#000000' }));
   // }
 
-  // updateTextWithTags() {
-  //   const contentElement = document.querySelector('.custom-textarea');
-  //   if (contentElement && this.currentFile) {
-  //     const content = this.currentFile.content;
-  //     let updatedContent = '';
+  updateTextWithTags() {
+    const contentElement = document.querySelector('.custom-textarea');
+    if (contentElement && this.currentFile) {
+      const content = this.currentFile.content;
+
+      let updatedContent = '';
   
-  //     const tags = this.tagService.getTagsForDocument(this.currentIndex);
+      const tags = this.tagService.getTagsForDocument(this.currentIndex);
       
-  
-  //     let currentPosition = 0;
-  
-  //     tags.forEach(tag => {
-  //       const tagColor = this.tagService.tags.find(t => t.name === tag.tag)?.color || '#000000';
+      const spanTagLengthInicio = `<span style="background-color: #000000;">`.length;
 
-  //       const spanTagLengthInicio = `<span style="background-color: ${tagColor};">`.length;
+      const spanTagLengthFim ='</span>'.length;
+      let currentPosition = 0;
+      let tagNum = 0
+      
+      tags.forEach(tag => {
+        const tagColor = this.tagService.tags.find(t => t.name === tag.tag)?.color || '#000000';
 
-  //       const spanTagLengthFim ='</span>'.length;
+        let start = 0
+        let end = 0
+      
+        start = tag.start + (tagNum * (spanTagLengthInicio + spanTagLengthFim));
+        end = start + (tag.end - tag.start);// + spanTagLengthInicio + spanTagLengthFim;
+        console.log('Inicio coloracao: ', start)
+        console.log('Fim coloracao: ', end)
+        updatedContent += content.substring(currentPosition, start);
+        updatedContent += `<span style="background-color: ${tagColor};">${content.substring(start, end)}</span>`;
+        currentPosition = tag.end //+ spanTagLengthFim;
 
-  //       const start = tag.start + spanTagLengthInicio;
-  //       const end = tag.end + spanTagLengthInicio + spanTagLengthFim;
-        
-  
-  //       updatedContent += content.substring(currentPosition, start);
-  //       updatedContent += `<span style="background-color: ${tagColor};">${content.substring(start, end)}</span>`;
-  //       currentPosition = end;
-  //     });
-  
-  //     updatedContent += content.substring(currentPosition);
-  //     updatedContent = updatedContent.replace(/\n/g, '<br>');
-  
-  //     contentElement.innerHTML = updatedContent;
-  //   }
-  // }
-  onTextSelect(selectedText: string, startIndex: number, endIndex: number) {
-    //console.log("Texto selecionado:", selectedText);
-    console.log("Inicio:", startIndex)
-    console.log("Fim:", endIndex)
-    
-    if (selectedText) {
-      const dialogRef = this.dialog.open(TagsSelectionComponent);
-  
-      dialogRef.afterClosed().subscribe((selectedTag: string) => {
-        if (selectedTag) {
-          const currentIndex = this.currentIndex;
-          if (this.currentFile) {
-            const content = this.currentFile.content;
-            const start = startIndex;
-            const end = endIndex;
-            console.log("start:", start);
-            console.log("end:", end);
-            const existingTagIndex = this.tagService.getTagsForDocument(currentIndex).findIndex(tag => tag.start === start && tag.end === end);
-            
-            if (existingTagIndex !== -1) {
-              // Se uma tag já existe com o mesmo início e fim, substitua-a
-              this.tagService.tagsPerDocument[currentIndex].splice(existingTagIndex, 1, { tag: selectedTag, start, end });
-            } else {
-              // Caso contrário, adicione uma nova tag
-              this.tagService.addTagToDocument(currentIndex, selectedTag, start, end);
-            }
-            //this.updateTextWithTags();
-            console.log(this.tagService.getTagsForDocument(this.currentIndex));
-          }
-        }
       });
+  
+      updatedContent += content.substring(currentPosition);
+      //updatedContent = updatedContent.replace(/\n/g, '<br>');
+      //updatedContent = updatedContent.replace(/&nbsp;/g, ' ');//
+
+      contentElement.innerHTML = updatedContent;
+      tagNum += 1;
     }
   }
+  // onTextSelect(selectedText: string, startIndex: number, endIndex: number) {
+  //   //console.log("Texto selecionado:", selectedText);
+  //   console.log("Inicio:", startIndex)
+  //   console.log("Fim:", endIndex)
+    
+  //   if (selectedText) {
+  //     const dialogRef = this.dialog.open(TagsSelectionComponent);
+  
+  //     dialogRef.afterClosed().subscribe((selectedTag: string) => {
+  //       if (selectedTag) {
+  //         const currentIndex = this.currentIndex;
+  //         if (this.currentFile) {
+  //           const content = this.currentFile.content;
+  //           const start = startIndex;
+  //           const end = endIndex;
+  //           console.log("start:", start);
+  //           console.log("end:", end);
+  //           const existingTagIndex = this.tagService.getTagsForDocument(currentIndex).findIndex(tag => tag.start === start && tag.end === end);
+            
+  //           if (existingTagIndex !== -1) {
+  //             // Se uma tag já existe com o mesmo início e fim, substitua-a
+  //             this.tagService.tagsPerDocument[currentIndex].splice(existingTagIndex, 1, { tag: selectedTag, start, end });
+  //           } else {
+  //             // Caso contrário, adicione uma nova tag
+  //             this.tagService.addTagToDocument(currentIndex, selectedTag, start, end);
+  //           }
+  //           //this.updateTextWithTags();
+  //           console.log(this.tagService.getTagsForDocument(this.currentIndex));
+  //         }
+  //       }
+  //     });
+  //   }
+  // }
   
   
   onKeyUp(text: string) {
@@ -211,13 +265,17 @@ export class AnotadorHomeComponent {
   getTagsForCurrentFile(): { name: string, text: string, textPreview: string, start: number, end: number }[] {
     const tags = this.tagService.getTagsForDocument(this.currentIndex);
     const content = this.currentFile ? this.currentFile.content : '';
+    
+    // Ordenar as tags pelo índice de início (start)
+    tags.sort((a, b) => a.start - b.start);
+
     return tags.map(tag => {
       const text = content.substring(tag.start, tag.end);
       const maxLength = 50; // Define o comprimento máximo do texto exibido na coluna "Texto"
-      const truncatedText = text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+      const truncatedText = text//text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
       return { name: tag.tag, text: text, textPreview: truncatedText, start: tag.start, end: tag.end };
     });
-  }
+}
 
   deleteTag(tagIndex: number) {
     // Verifique se o índice da tag está dentro dos limites do array de tags do documento atual

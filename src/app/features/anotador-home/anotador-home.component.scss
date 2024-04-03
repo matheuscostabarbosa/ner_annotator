@@ -184,18 +184,38 @@ textarea {
 
 /* Estilo para a lista de marcadores */
 .tag-text-list {
-  //overflow-y: scroll;
-  height: 20%;
-  // border-radius: 5px;
-  // background-color: #f2f2f2; /* Quase branco */
-  // border: 1px solid #ccc; /* Borda cinza */
+   max-height: 200px;
+   width: 100%;
+   display: inline-grid;
+   overflow-y: auto;
 }
 
+.tag-text-list thead {
+  position: sticky;
+  top: 0;
+  //background-color: #f2f2f2;
+}
+
+// .tag-text-list tbody {
+//   // display: block;
+//   // overflow-y: auto;
+//   height: calc(100% - 38px); /* Altura do corpo da tabela (altura total - altura do cabeçalho) */
+// }
+
+// table {
+//   display: inline-grid;
+//   overflow-y: scroll;
+
+// }
+
 .tag-text-list table {
-  width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
-  height: 20%; /* Define a altura da tabela */
+  max-height: 200px;
+  //height: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .tag-text-list th,
@@ -203,6 +223,10 @@ textarea {
   border: 1px solid #ddd;
   padding: 8px;
   word-break: break-word;
+  //max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .tag-text-list th {
@@ -211,7 +235,7 @@ textarea {
 }
 
 tr {
-  height: 10px;
+  height: 30px;
 }
 
 .tag-text-list tr:hover {
@@ -230,17 +254,16 @@ tr {
   background-color: #d32f2f;
 }
 
-/* Fix for row heights and scroll */
-.tag-text-list tr {
-  height: 40px; /* Define a altura das linhas */
-}
+// .tag-text-list tbody {
+//   display: block;
+//   overflow-y: auto; /* Adicionar barra de rolagem vertical */
+//   width: 100%;
+// }
 
-.tag-text-list tbody {
-  //overflow-y: scroll;
-  height: calc(100% - 40px); /* Ajusta a altura da área de rolagem */
-  //max-height: 300px;
-  resize: none;
-}
+// .tag-text-list thead {
+//   display: table;
+//   width: calc(100% - 17px);
+// }
 
 /* Zebra Stripe (opcional) */
 .tag-text-list tr:nth-of-type(odd) {

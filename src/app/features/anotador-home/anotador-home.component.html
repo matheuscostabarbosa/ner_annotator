@@ -34,12 +34,13 @@
     <div *ngIf="currentFile" class="textarea-container">
       <h2>{{ currentFile.name }}</h2>
       <p>Arquivo Atual: {{ currentIndex + 1 }} de {{ files.length }}</p>
-      <textarea #textArea
-        (mouseup)="onTextSelect(textArea.value, textArea.selectionStart, textArea.selectionEnd)"
-        (input)="onKeyUp(textArea.value)"
-        [value]="currentFile.content"
-        class="custom-textarea">
-    </textarea>
+      <div #textArea
+        (mouseup)="onTextSelect()"
+        
+        [innerHTML]="updateTextWithTags()"
+        class="custom-textarea"
+        style="position:relative;white-space: pre-wrap;">
+    </div>
     </div>
 
     <div *ngIf="!currentFile" class="textarea-container">
@@ -53,8 +54,9 @@
       <button (click)="gerarJson()">Gerar JSON</button>
     </div>
 
+    <!--<h3>Texto Marcado</h3>-->
     <div class="tag-text-list">
-      <h3>Texto Marcado</h3>
+      
       <table class="table-container">
         <thead>
           <tr>
