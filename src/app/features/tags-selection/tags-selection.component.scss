@@ -1,11 +1,25 @@
-mat-dialog-actions {
-    display: flex;
-    flex-wrap: wrap; /* Permite que os botões se ajustem ao tamanho do container */
-    gap: 10px; /* Espaçamento entre os botões */
+// mat-dialog-actions {
+//     display: flex;
+//     flex-wrap: wrap; /* Permite que os botões se ajustem ao tamanho do container */
+//     gap: 10px; /* Espaçamento entre os botões */
+//   }
+  
+  // button.mat-button {
+  //   min-width: 100px; /* Largura mínima para os botões */
+  //   border-radius: 5px; /* Borda arredondada */
+  //   color: white; /* Cor do texto */
+  // }
+
+  .tags-selection-dialog {
+    padding: 20px;
   }
   
-  button.mat-button {
-    min-width: 100px; /* Largura mínima para os botões */
-    border-radius: 5px; /* Borda arredondada */
-    color: white; /* Cor do texto */
+  .dialog-title {
+    margin-bottom: 10px;
+  }
+  
+  .tag-button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
   }

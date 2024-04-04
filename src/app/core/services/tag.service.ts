@@ -21,6 +21,17 @@ export class TagService {
     this.tagsPerDocument[documentIndex].push({ tag, start, end });
   }
 
+  deleteTagInDocument(documentIndex: number, tagIndex: number) {
+    // Verificar se o índice do documento está dentro dos limites do array de tagsPerDocument
+    if (this.tagsPerDocument[documentIndex]) {
+        // Verificar se o índice da tag está dentro dos limites do array de tags no documento atual
+        if (tagIndex >= 0 && tagIndex < this.tagsPerDocument[documentIndex].length) {
+            // Remover a tag do array de tags no documento atual
+            this.tagsPerDocument[documentIndex].splice(tagIndex, 1);
+        }
+    }
+  }
+
   getTags() {
     return this.tags;
   }
@@ -53,5 +64,15 @@ export class TagService {
       const darkThreshold = 0.3;
 
       return luminance < darkThreshold;
+  }
+
+  removeTag(tagName: string) {
+    // Remove a tag da lista de tags
+    this.tags = this.tags.filter(tag => tag.name !== tagName);
+  
+    // Remove todas as ocorrências da tag em todos os documentos
+    for (const documentIndex in this.tagsPerDocument) {
+      this.tagsPerDocument[documentIndex] = this.tagsPerDocument[documentIndex].filter(tag => tag.tag !== tagName);
+    }
   }
 }

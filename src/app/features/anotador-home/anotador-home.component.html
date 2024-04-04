@@ -35,7 +35,7 @@
       <h2>{{ currentFile.name }}</h2>
       <p>Arquivo Atual: {{ currentIndex + 1 }} de {{ files.length }}</p>
       <div #textArea
-        (mouseup)="onTextSelect()"
+        
         
         [innerHTML]="updateTextWithTags()"
         class="custom-textarea"
@@ -76,7 +76,7 @@
             <td>{{ tag.start }}</td>
             <td>{{ tag.end }}</td>
             <td>
-              <button (click)="deleteTag(i)">Excluir</button> <!-- Passando o índice da tag -->
+              <button (click)="deleteTagInDocument(i)">Excluir</button> <!-- Passando o índice da tag -->
             </td>
           </tr>
         </tbody>
@@ -87,10 +87,29 @@
 
   <div class="tags-container">
     <h3>Tags</h3>
-    <div *ngFor="let tag of tagService.tags" class="tag" [style.backgroundColor]="tag.color">
+    <div *ngFor="let tag of tagService.tags; let i = index" class="tag" [style.backgroundColor]="tag.color">
       {{ tag.name }}
+      <button (click)="deleteTag(i)" class="close-button">
+        <img src="assets/fechar.png" alt="Excluir" width="20" height="20">
+      </button>
     </div>
     <input type="text" [(ngModel)]="newTag" placeholder="Nova Tag">
     <button (click)="addTag()">Adicionar Tag</button>
   </div>
 </div>
+
+<!-- <div matMenuTrigger [matMenuTriggerFor]="menu" #trigger="matMenuTrigger"></div>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>dialpad</mat-icon>
+    <span>Redial</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>voicemail</mat-icon>
+    <span>Check voice mail</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
+    <span>Disable alerts</span>
+  </button>
+</mat-menu> -->

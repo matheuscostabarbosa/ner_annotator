@@ -1,10 +1,13 @@
-<div>
-  <h3>Selecione uma Tag:</h3>
-  <mat-dialog-actions>
-    <button mat-button *ngFor="let tag of tagService.tags" [style.background-color]="tag.color" [mat-dialog-close]="tag.name" cdkFocusInitial>
+<div class="tags-selection-dialog">
+  <h3 class="dialog-title">Selecione uma Tag:</h3>
+  <!-- <mat-dialog-actions>
+    <button mat-button class="tag-button" *ngFor="let tag of tagService.tags" [style.background-color]="tag.color" [mat-dialog-close]="tag.name" cdkFocusInitial>
       {{ tag.name }}
     </button>
-  </mat-dialog-actions>
+  </mat-dialog-actions> -->
+  <button mat-button class="tag-button" *ngFor="let tag of tagService.tags" [style.background-color]="tag.color" [mat-dialog-close]="tag.name" cdkFocusInitial>
+    {{ tag.name }}
+  </button>
 </div>
 
 
