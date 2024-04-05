@@ -21,7 +21,7 @@ After annotating the files, click the "Generate JSON" button to create a JSON fi
 
 6. View and Manage Annotations
 In the table below the text panel, you can view all annotations made in each file.
-Each row of the table shows the tag name, annotated text, start index, and end index of the annotated text.
+Each row in the table displays the tag name, annotated text (displayed truncated), the start index, and the end index of the annotated text. The displayed text is truncated, and to view it in full, simply hover over the text.
 You can delete an annotation by clicking the "Delete" button corresponding to the desired annotation.
 
 General Notes
