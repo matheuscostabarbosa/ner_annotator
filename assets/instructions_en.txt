@@ -1,0 +1,30 @@
+
+1. Open Text Files
+Click on the "Open Files" button to select one or more text files (.txt).
+The selected files will be displayed in the file list.
+
+2. Navigate between Files
+Use the "Previous File" and "Next File" buttons to navigate between the loaded files.
+
+3. Select and Annotate Text
+Click and drag the mouse to select text in the text panel.
+Once the text is selected, a tag selection window will appear near the mouse cursor.
+Choose a tag in the tag selection window, and it will be applied to the selected text.
+
+4. Add or Delete Tags
+In the "Tags" section, you can view all available tags.
+To add a new tag, type the tag name in the "New Tag" box and click "Add Tag".
+To delete an existing tag, click the "Delete" button next to the desired tag.
+
+5. Generate JSON
+After annotating the files, click the "Generate JSON" button to create a JSON file containing the annotations.
+
+6. View and Manage Annotations
+In the table below the text panel, you can view all annotations made in each file.
+Each row of the table shows the tag name, annotated text, start index, and end index of the annotated text.
+You can delete an annotation by clicking the "Delete" button corresponding to the desired annotation.
+
+General Notes
+Tags are applied directly to the selected text and are visible in the text panel.
+Changes made to annotations are updated in real-time in the text panel.
+Be sure to save your annotations regularly by clicking the "Generate JSON" button.
