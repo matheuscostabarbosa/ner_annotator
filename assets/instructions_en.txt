@@ -28,3 +28,6 @@ General Notes
 Tags are applied directly to the selected text and are visible in the text panel.
 Changes made to annotations are updated in real-time in the text panel.
 Be sure to save your annotations regularly by clicking the "Generate JSON" button.
+
+
+
