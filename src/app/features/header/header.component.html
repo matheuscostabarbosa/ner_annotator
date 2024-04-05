@@ -1,21 +1,29 @@
 <header>
-    <h1 class="title">Named Entity Recognition (NER) - Annotator</h1>
-    <div class="nav">
-      <ul>
-        <li id="show-instructions">
-          <a href="#">Instructions</a>
-          <div class="slide-content">
-            <!-- Conteúdo do slide de Instructions -->
-            <p>Texto de instruções aqui...</p>
-          </div>
-        </li>
-        <li id="show-social">
-          <a href="#">Find Me</a>
-          <div class="slide-content">
-            <!-- Conteúdo do slide de redes sociais -->
-            <p>Redes sociais aqui...</p>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </header>
+  <h1 class="title">Named Entity Recognition (NER) - Annotator</h1>
+  <div class="nav">
+    <ul>
+      <li id="show-instructions">
+        <a href="#">Instructions</a>
+        <div class="slide-content">
+          <!-- Adicione o seletor de idioma aqui -->
+          <app-language-selector (languageChange)="onLanguageChange($event)" (instructionsChange)="onInstructionsChange($event)"></app-language-selector>
+
+          <hr>
+          <div style="margin-bottom: 10px;"></div>
+
+          <!-- Conteúdo das instruções -->
+          <p [innerHTML]="instructionsContent"></p>
+        </div>
+      </li>
+      <li id="show-social">
+        <a href="#">Find Me</a>
+        <div class="slide-content">
+          <p class="social-text">
+            Siga-me no <a class="social-icon" href="https://www.instagram.com/math_costa_" target="_blank"><fa-icon [icon]="instagramIcon" size="3x"></fa-icon></a>
+            ou envie um e-mail para <a class="social-icon" href="mailto:matheuscostabarbosa@gmail.com"><fa-icon [icon]="envelopeIcon" size="3x"></fa-icon></a>.
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</header>

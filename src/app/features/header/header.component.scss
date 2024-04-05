@@ -31,7 +31,7 @@ header {
   
   header li a {
     float: left;
-    width: 98px;
+    //width: 98px;
     height: 12px;
     padding: 14px 7px;
     color: #201d1d;
@@ -49,12 +49,29 @@ header {
     position: absolute;
     top: 40px; // Alinha o conteúdo do slide abaixo do cabeçalho
     left: 0;
-    width: 200px;
+    width: 500px;
     background: rgba(240, 240, 240, 0.9); 
     padding: 10px;
     border-top: 1px solid #252525;
+
+    max-height: 500px; /* Defina a altura máxima para adicionar rolagem */
+    overflow-y: auto;
   }
   
   header li:hover .slide-content {
     display: block; // Mostra o conteúdo do slide ao passar o mouse sobre a opção do menu
+  }
+
+  .social-text {
+    display: flex;
+    //width: 200px
+    align-items: center; /* Alinhar verticalmente */
+    //vertical-align: middle;
+    margin-left: 10px;
+  }
+  .social-icon {
+    display: flex;
+    //margin-right: 5px;
+    align-items: center;
+    //vertical-align: middle;
   }

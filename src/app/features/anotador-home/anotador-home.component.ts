@@ -50,16 +50,18 @@ export class AnotadorHomeComponent {
       const file: File = fileList[i];
       if (file.name.endsWith('.txt')) {
         const reader = new FileReader();
+        const encoding = 'UTF-8';  
         reader.onload = () => {
           const content: string | ArrayBuffer | null = reader.result;
           if (typeof content === 'string') {
             this.files.push({ name: file.name, content });
-            if (this.files.length === 1) {
-              this.setCurrentFile(this.files[0]);
-            }
+            // if (this.files.length === 1) {
+            //   this.setCurrentFile(this.files[0]);
+            //   this.updateTextWithTags();
+            // }
           }
         };
-        reader.readAsText(file);
+        reader.readAsText(file, encoding);
       }
     }
   }
@@ -124,26 +126,6 @@ export class AnotadorHomeComponent {
       }
     }
   }
-
-  // getSelectedText(textArea: Element): SelectedTextResult | null {
-  //   // descontar todos os length de tags existentes antes da seleção e depois
-  //     const selection = window.getSelection();
-  //     if (selection && selection.rangeCount > 0) {
-  //         const range = selection.getRangeAt(0);
-  //         const preSelectionRange = range.cloneRange();
-  //         preSelectionRange.selectNodeContents(textArea);
-  //         preSelectionRange.setEnd(range.startContainer, range.startOffset);
-  //         const startIndex = preSelectionRange.toString().length;
-  //         const selectedText = textArea.textContent?.substring(startIndex, startIndex + range.toString().length) || '';
-  //         const length = range.toString().length;
-  //         console.log("Índice de início:", startIndex);
-  //         console.log("Texto selecionado:", selectedText);
-  //         console.log("Comprimento do texto selecionado:", length);
-  //         return { text: selectedText, startIndex: startIndex, length: length };
-  //     }
-  //     return null;
-  // }
-
 
   getSelectedText(textArea: Element): SelectedTextResult | null {
     const selection = window.getSelection();
@@ -223,28 +205,25 @@ export class AnotadorHomeComponent {
   @HostListener('document:mouseup', ['$event'])
   onMouseUp(event: MouseEvent) {
     const target = (event.target as HTMLElement).closest('.fechar-button');
+    const target3 = (event.target as HTMLElement).closest('.span-tag');
+    const target2 = (event.target as HTMLElement).closest('.custom-textarea');
+    const targetListDeleteTag = (event.target as HTMLElement).closest('.list-delete-tag');
+    const targetCloseButton = (event.target as HTMLElement).closest('.close-button');
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    event.preventDefault();
+   
     if (target) {
-      event.stopImmediatePropagation();
-      event.stopPropagation();
-      event.preventDefault();
-      console.log("teste"); // Adicionar ação de deletar tag especifica
       this.fecharTag(target.id, event);
-    }else {
-      const target3 = (event.target as HTMLElement).closest('.span-tag');
-      if (target3){ // Não faz nada
-        event.stopImmediatePropagation();
-        event.stopPropagation();
-        event.preventDefault();
-      }else {
-        const target2 = (event.target as HTMLElement).closest('.custom-textarea');
-        if (target2) {
-          event.stopImmediatePropagation();
-          event.stopPropagation();
-          event.preventDefault();
-          this.onTextSelect(event)
-        }
+    } else if (target3) {
+      // Não fazer nada
+    } else if (target2) {
+      this.onTextSelect(event);
+    } else if (targetListDeleteTag) {
+      this.fecharTag(targetListDeleteTag.id, event);
+    } else if (targetCloseButton) {
+      this.deleteTag(parseInt(targetCloseButton.id))
     }
-  }
   }
 
   updateTextWithTags() {
@@ -282,6 +261,7 @@ export class AnotadorHomeComponent {
   
       updatedContent += content.substring(currentPosition);
       //updatedContent = updatedContent.replace(/\n/g, '<br>');
+      updatedContent = updatedContent.replace(/\r/g, '\n');
       //updatedContent = updatedContent.replace(/&nbsp;/g, ' ');//
 
       contentElement.innerHTML = updatedContent;
@@ -334,7 +314,7 @@ export class AnotadorHomeComponent {
   
       // Remove todas as ocorrências da tag em todos os documentos
       this.tagService.removeTag(deletedTagName);
-      this.tagService.tags.splice(tagIndex, 1);
+      //this.tagService.tags.splice(tagIndex, 1);
     }
   }
 

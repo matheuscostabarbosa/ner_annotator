@@ -76,7 +76,7 @@
             <td>{{ tag.start }}</td>
             <td>{{ tag.end }}</td>
             <td>
-              <button (click)="deleteTagInDocument(i)">Excluir</button> <!-- Passando o índice da tag -->
+              <button class="list-delete-tag" id="{{i}}">Excluir</button> <!-- Passando o índice da tag -->
             </td>
           </tr>
         </tbody>
@@ -89,7 +89,7 @@
     <h3>Tags</h3>
     <div *ngFor="let tag of tagService.tags; let i = index" class="tag" [style.backgroundColor]="tag.color">
       {{ tag.name }}
-      <button (click)="deleteTag(i)" class="close-button">
+      <button (click)="$event.stopPropagation();$event.preventDefault();deleteTag(i)" class="close-button">
         <img src="assets/fechar.png" alt="Excluir" width="20" height="20">
       </button>
     </div>
