@@ -1,0 +1,24 @@
+
+1. Abrir Arquivos de Texto
+Clique no botão "Abrir Arquivos" para selecionar um ou mais arquivos de texto (.txt).
+Os arquivos selecionados serão exibidos na lista de arquivos.
+2. Navegar entre os Arquivos
+Use os botões "Arquivo Anterior" e "Próximo Arquivo" para navegar entre os arquivos carregados.
+3. Adicionar ou Excluir Tags
+Na seção "Tags", você pode visualizar todas as tags disponíveis.
+Para adicionar uma nova tag, digite o nome da tag na caixa de texto "Nova Tag" e clique em "Adicionar Tag".
+Para excluir uma tag existente, clique no botão "Excluir" ao lado da tag desejada.
+4. Selecionar e Anotar Texto
+Clique e arraste o mouse para selecionar o texto no painel de texto.
+Uma vez selecionado o texto, uma janela de seleção de tags será exibida próximo ao cursor do mouse.
+Escolha uma tag na janela de seleção de tags e ela será aplicada ao texto selecionado.
+5. Gerar JSON
+Depois de concluir a anotação dos arquivos, clique no botão "Gerar JSON" para criar um arquivo JSON contendo as anotações.
+6. Visualizar e Gerenciar Anotações
+Na tabela abaixo do painel de texto, você pode visualizar todas as anotações feitas em cada arquivo.
+Cada linha da tabela mostra o nome da tag, o texto anotado (sendo exibido truncado), o índice de início e o índice de fim do texto anotado. O texto exibido está truncado e para visualizar completo basta deixar o mouse sobre o texto.
+Você pode excluir uma anotação clicando no botão "Excluir" correspondente à anotação desejada.
+Observações Gerais
+As tags são aplicadas diretamente ao texto selecionado e são visíveis no painel de texto.
+As alterações feitas nas anotações são atualizadas em tempo real no painel de texto.
+Certifique-se de salvar suas anotações regularmente clicando no botão "Gerar JSON".
